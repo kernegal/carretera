@@ -75,8 +75,8 @@
             plane.geometry.vertices[10].z=50
 			scene.add(plane);*/
             var width=100;
-            var height=1;
-            var points=genCircuit(width, height, 1,0.5);
+            var height=5;
+            var points=genCircuit(width, height, 2,0.6);
 			var material = new THREE.LineBasicMaterial({
 				color: 0xdddddd
 			});
@@ -85,7 +85,7 @@
                 geometry.vertices.push(new THREE.Vector3(i,points[i],0));
             }
             var line=new THREE.Line(geometry,material);
-            line.position.set(-10,0,-10);
+            line.position.set(-20,0,-10);
             scene.add(line);
 			camera.position.x = 0;
 			camera.position.y =1;
