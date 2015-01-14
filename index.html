@@ -12,6 +12,27 @@
 		<script src="js/libs/stats.min.js"></script>
 		<script src="js/controls/FirstPersonControls.js"></script>
 
+        <script> 
+            function genCircuit(width, height, displace,roughness){
+                var [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
+                points[0]=points[power]=height/2+(Math.random()*displace*2)-displace;
+                var cuarters=power/4;
+                points[cuarters]=points[power]=height/2+(Math.random()*displace*2)-displace;
+                points[cuarters*2]=points[power]=height/2+(Math.random()*displace*2)-displace;
+                points[cuarters*3]=points[power]=height/2+(Math.random()*displace*2)-displace;
+                displace*=roughness;
+                
+                for(var i=4;i<power;i*=2){
+                    for(var j=(power/i)/2;j<power;j+=power/i){
+                        points[j]=((points[j- (power/i)/2]+points[j+(power/i)/2])/2);
+                        points[j]+=(Matth.random()*displace*2)-displace;
+                    }
+                    displace*=roughness;
+                }
+                return points;
+            }
+        </script>
+        
 		<script>
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
