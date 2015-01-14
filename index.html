@@ -81,7 +81,7 @@
 				color: 0xdddddd
 			});
             var geometry=new THREE.Geometry();
-            for(var i=0; i<len(points);i++){
+            for(var i=0; i<points.length;i++){
                 geometry.vertices.push(new THREE.Vector3(i,points[i],0));
             }
             var line=new THREE.Line(geometry,material);
