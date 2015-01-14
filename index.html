@@ -62,7 +62,7 @@
 			var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
 			var cube = new THREE.Mesh( geometry, material );
 			geometry.dynamic = true;
-            cube.position.set(0,0,-1);
+            cube.position.set(0,0,1);
 			scene.add( cube );
 			
 			var geometry = new THREE.PlaneGeometry(60, 60, 199, 199);
