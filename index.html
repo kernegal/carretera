@@ -17,9 +17,9 @@
                 var points = [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
                 points[0]=points[power]=height/2+(Math.random()*displace*2)-displace;
                 var cuarters=power/4;
-                points[cuarters]=points[power]=height/2+(Math.random()*displace*2)-displace;
-                points[cuarters*2]=points[power]=height/2+(Math.random()*displace*2)-displace;
-                points[cuarters*3]=points[power]=height/2+(Math.random()*displace*2)-displace;
+                points[cuarters]=height/2+(Math.random()*displace*2)-displace;
+                points[cuarters*2]=height/2+(Math.random()*displace*2)-displace;
+                points[cuarters*3]=height/2+(Math.random()*displace*2)-displace;
                 displace*=roughness;
                 
                 for(var i=4;i<power;i*=2){
