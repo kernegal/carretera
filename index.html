@@ -14,7 +14,7 @@
 
         <script> 
             function genCircuit(width, height, displace,roughness){
-                var [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
+                var points = [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
                 points[0]=points[power]=height/2+(Math.random()*displace*2)-displace;
                 var cuarters=power/4;
                 points[cuarters]=points[power]=height/2+(Math.random()*displace*2)-displace;
@@ -62,7 +62,7 @@
 			var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
 			var cube = new THREE.Mesh( geometry, material );
 			geometry.dynamic = true;
-            object.position.set(0,1,0);
+            cube.position.set(0,1,0);
 			scene.add( cube );
 			
 			var geometry = new THREE.PlaneGeometry(60, 60, 199, 199);
