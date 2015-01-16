@@ -31,6 +31,17 @@
                 }
                 return points;
             }
+            function mapToCircle(points){
+                var circlePoint=[];
+                var delta=2*Math.PI/points.length;
+                var cosDelta=Math.cos(delta);
+                var sinDelta=Math.sin(delta);
+                var unitVectorX=0;
+                var unitVectorY=1;
+                for(var angle=0,var i=0;angle<2*Math.PI;angle+=delta,i++){
+                    circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
+                }
+            }
         </script>
         
 		<script>
@@ -77,12 +88,13 @@
             var width=80;
             var height=10;
             var points=genCircuit(width, height, 30,0.3);
+            var pointsCarretera=mapToCircle(points);
 			var material = new THREE.LineBasicMaterial({
 				color: 0xdddddd
 			});
             var geometry=new THREE.Geometry();
-            for(var i=0; i<points.length;i++){
-                geometry.vertices.push(new THREE.Vector3(i,points[i],0));
+            for(var i=0; i<pointsCarretera.length;i++){
+                geometry.vertices.push(pointsCarretera[i]);
             }
             var line=new THREE.Line(geometry,material);
             line.position.set(-60,0,-50);
