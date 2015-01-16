@@ -41,7 +41,7 @@
                     
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
                     unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
-                    unitVectorX=-unitVectorX*sinDelta+unitVectorY*cosDelta;
+                    unitVectorY=-unitVectorX*sinDelta+unitVectorY*cosDelta;
                     i++;
                 }
                 return circlePoints;
