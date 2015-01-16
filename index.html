@@ -36,8 +36,13 @@
                 var sinDelta=Math.sin(delta);
                 var unitVectorX=0;
                 var unitVectorY=1;
-                for(var angle=0,var i=0;angle<2*Math.PI;angle+=delta,i++){
+                var i=0;
+                for(var angle=0;angle<2*Math.PI;angle+=delta){
+                    
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
+                    unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
+                    unitVectorX=-unitVectorX*sinDelta+unitVectorY*cosDelta;
+                    i++;
                 }
             }
         </script>
@@ -87,7 +92,6 @@
             var height=10;
             var points=genCircuit(width, height, 30,0.3);
             var pointsCarretera=mapToCircle(points);
-            var points=genCircuit(width, height, 15,0.3);
 			var material = new THREE.LineBasicMaterial({
 				color: 0xdddddd
 			});
