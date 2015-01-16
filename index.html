@@ -16,13 +16,11 @@
             function genCircuit(width, height, displace,roughness){
                 var points = [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
                 points[0]=points[power]=height/2+(Math.random()*displace*2)-displace;
-                var cuarters=power/4;
+                var cuarters=power/2;
                 points[cuarters]=height/2+(Math.random()*displace*2)-displace;
-                points[cuarters*2]=height/2+(Math.random()*displace*2)-displace;
-                points[cuarters*3]=height/2+(Math.random()*displace*2)-displace;
                 displace*=roughness;
                 
-                for(var i=4;i<power;i*=2){
+                for(var i=2;i<power;i*=2){
                     for(var j=(power/i)/2;j<power;j+=power/i){
                         points[j]=((points[j- (power/i)/2]+points[j+(power/i)/2])/2);
                         points[j]+=(Math.random()*displace*2)-displace;
@@ -87,8 +85,12 @@
 			scene.add(plane);*/
             var width=80;
             var height=10;
+<<<<<<< HEAD
             var points=genCircuit(width, height, 30,0.3);
             var pointsCarretera=mapToCircle(points);
+=======
+            var points=genCircuit(width, height, 15,0.3);
+>>>>>>> 72023c9daf07850d2fa244eee09db7d040d5d344
 			var material = new THREE.LineBasicMaterial({
 				color: 0xdddddd
 			});
@@ -97,7 +99,7 @@
                 geometry.vertices.push(pointsCarretera[i]);
             }
             var line=new THREE.Line(geometry,material);
-            line.position.set(-60,0,-50);
+            line.position.set(-60,0,-60);
             scene.add(line);
 			camera.position.x = 0;
 			camera.position.y =1;
