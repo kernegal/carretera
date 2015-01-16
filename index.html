@@ -15,9 +15,9 @@
         <script> 
             function genCircuit(width, height, displace,roughness){
                 var points = [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
-                points[0]=points[power]=height/2+(Math.random()*displace*2)-displace;
-                var cuarters=power/2;
-                points[cuarters]=height/2+(Math.random()*displace*2)-displace;
+                points[power/2]=height/2+(Math.random()*displace*2)-displace;
+                displace*=roughness;
+                points[power]=points[0]=height/2+(Math.random()*displace*2)-displace;
                 displace*=roughness;
                 
                 for(var i=2;i<power;i*=2){
@@ -37,7 +37,7 @@
                 var unitVectorX=0;
                 var unitVectorY=1;
                 var i=0;
-                for(var angle=0;angle<=2*Math.PI;angle+=delta){
+                for(var angle=0;angle<2*Math.PI;angle+=delta){
                     
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
                     unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
