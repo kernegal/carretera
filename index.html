@@ -103,7 +103,19 @@
             var line=new THREE.Line(geometry,material);
             line.position.set(-60,0,-60);
             scene.add(line);
-			camera.position.x = 0;
+            
+            var material2 = new THREE.LineBasicMaterial({
+				color: 0xdd0000
+			});
+            var geometry2=new THREE.Geometry();
+            for(var i=0; i<points.length;i++){
+                geometry.vertices.push(new THREE.Vector3(i,points[i],0););
+            }
+            var line2=new THREE.Line(geometry,material);
+            line2.position.set(-60,0,-60);
+            scene2.add(line);
+            
+			camera.position.x = -30;
 			camera.position.y =1;
 			function render() {
 				//cube.rotation.x += 0.1;
