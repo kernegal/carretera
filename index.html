@@ -24,6 +24,7 @@
                     for(var j=(power/i)/2;j<power;j+=power/i){
                         points[j]=((points[j- (power/i)/2]+points[j+(power/i)/2])/2);
                         points[j]+=(Math.random()*displace*2)-displace;
+                        console.log(j);
                     }
                     displace*=roughness;
                 }
