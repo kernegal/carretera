@@ -32,7 +32,7 @@
             }
             function mapToCircle(points){
                 var circlePoints=[];
-                var delta=2*(Math.PI/points.length-1);
+                var delta=2*Math.PI/(points.length-1);
                 var cosDelta=Math.cos(delta);
                 var sinDelta=Math.sin(delta);
                 var unitVectorX=0;
