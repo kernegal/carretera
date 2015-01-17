@@ -35,18 +35,27 @@
                 var delta=2*Math.PI/(points.length-1);
                 var cosDelta=Math.cos(delta);
                 var sinDelta=Math.sin(delta);
-                var unitVectorX=0;
-                var unitVectorY=1;
+                var unitVectorX=1;
+                var unitVectorY=0;
                 
                 var angle=0
-                for(var i=0;i<points.length;i++){
+                for(var i=1;i<points.length;i++){
+                    angle+=delta;
+                    unitVectorX=Math.cos(angle);
+                    unitVectorY=Math.sin(angle);
+                    
                     console.log("x"+unitVectorX+" y"+unitVectorY+" i"+i+" angle"+angle);
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
-                    unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
-                    unitVectorY=-unitVectorX*sinDelta+unitVectorY*cosDelta;
+                    /*unitVectorX=unitVectorX*cosDelta-unitVectorY*sinDelta;
+                    unitVectorY=+unitVectorX*sinDelta+unitVectorY*cosDelta;
                     
-                    angle+=delta
+                    if(i%5==0){*/
+                        
+                    /*}*/
                 }
+                circlePoints[0]=new THREE.Vector3(unitVectorX*points[0],unitVectorY*points[0],0);
+
+                
                 return circlePoints;
             }
         </script>
@@ -92,8 +101,8 @@
 			plane.rotation.x=-Math.PI/2;
             plane.geometry.vertices[10].z=50
 			scene.add(plane);*/
-            var width=30;
-            var height=80;
+            var width=10;
+            var height=60;
             var points=genCircuit(width, height, 30,0.7);
             var pointsCarretera=mapToCircle(points);
 			var material = new THREE.LineBasicMaterial({
@@ -107,7 +116,7 @@
             line.position.set(-60,0,-60);
             scene.add(line);
             
-            var material2 = new THREE.LineBasicMaterial({
+            /*var material2 = new THREE.LineBasicMaterial({
 				color: 0xdd0000
 			});
             var geometry2=new THREE.Geometry();
@@ -116,7 +125,7 @@
             }
             var line2=new THREE.Line(geometry2,material2);
             line2.position.set(-60,0,-70);
-            scene.add(line2);
+            scene.add(line2);*/
             
 			camera.position.x = -30;
 			camera.position.y =1;
