@@ -39,12 +39,12 @@
                 var unitVectorY=1;
                 var i=0;
                 for(var angle=0;angle<2*Math.PI;angle+=delta){
-                    
+                    console.log("x"+unitVectorX+" y"+unitVectorY);
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
                     unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
                     unitVectorY=-unitVectorX*sinDelta+unitVectorY*cosDelta;
                     i++;
-                }console.log("x"+unitVectorX+" y"+unitVectorY);
+                }
                 return circlePoints;
             }
         </script>
