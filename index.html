@@ -39,7 +39,7 @@
                 var unitVectorY=1;
                 
                 var angle=0
-                for(var i=0;i<points.length;i++;){
+                for(var i=0;i<points.length;i++){
                     console.log("x"+unitVectorX+" y"+unitVectorY+" i"+i+" angle"+angle);
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
                     unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
