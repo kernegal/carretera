@@ -39,7 +39,7 @@
                 var unitVectorY=1;
                 var i=0;
                 for(var angle=0;angle<2*Math.PI;angle+=delta){
-                    console.log("x"+unitVectorX+" y"+unitVectorY+" i"+i);
+                    console.log("x"+unitVectorX+" y"+unitVectorY+" i"+i+" angle"+angle);
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
                     unitVectorX=unitVectorX*cosDelta+unitVectorY*sinDelta;
                     unitVectorY=-unitVectorX*sinDelta+unitVectorY*cosDelta;
@@ -90,7 +90,7 @@
 			plane.rotation.x=-Math.PI/2;
             plane.geometry.vertices[10].z=50
 			scene.add(plane);*/
-            var width=100;
+            var width=30;
             var height=80;
             var points=genCircuit(width, height, 30,0.7);
             var pointsCarretera=mapToCircle(points);
