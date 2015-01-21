@@ -2,16 +2,8 @@
 
 <html lang="en">
 	<head>
-		<title>Treehouse Logo in three.js. Never!</title>
+		<title>Circuit Generator</title>
 		<meta charset="utf-8">
-	</head>
-	<body style="margin: 0;">
-
-		<script src="js/three.min.js"></script>
-		<script src="js/controls/OrbitControls.js"></script>
-		<script src="js/libs/stats.min.js"></script>
-		<script src="js/controls/FirstPersonControls.js"></script>
-
         <script> 
             function genCircuit(width, height, displace,roughness){
                 var points = [],power=Math.pow(2,Math.ceil(Math.log(width)/Math.log(2)));
@@ -24,7 +16,6 @@
                     for(var j=(power/i)/2;j<power;j+=power/i){
                         points[j]=((points[j- (power/i)/2]+points[j+(power/i)/2])/2);
                         points[j]+=(Math.random()*displace*2)-displace;
-                        console.log(j);
                     }
                     displace*=roughness;
                 }
@@ -44,7 +35,6 @@
                     unitVectorX=Math.cos(angle);
                     unitVectorY=Math.sin(angle);
                     
-                    console.log("x"+unitVectorX+" y"+unitVectorY+" i"+i+" angle"+angle);
                     circlePoints[i]=new THREE.Vector3(unitVectorX*points[i],unitVectorY*points[i],0);
                     /*unitVectorX=unitVectorX*cosDelta-unitVectorY*sinDelta;
                     unitVectorY=+unitVectorX*sinDelta+unitVectorY*cosDelta;
@@ -58,9 +48,36 @@
                 
                 return circlePoints;
             }
+			function generate(points,radius,displacement,roughness,line,scene){
+				scene.remove(line);
+				var points=genCircuit(points, radius, displacement,roughness);
+				var pointsCarretera=mapToCircle(points);
+				var material=new THREE.LineBasicMaterial({
+					color: "#dddd00"
+				});
+				var geometry=new THREE.Geometry();
+				for(var i=0; i<pointsCarretera.length;i++){
+					geometry.vertices.push(pointsCarretera[i]);
+				}
+				line=new THREE.Line(geometry,material);
+				line.position.set(0,0,-60);
+				scene.add(line);
+				return line
+			}
         </script>
+	</head>
+	<body style="margin: 0;">
+
+		<script src="js/three.min.js"></script>
+		<script src="js/controls/OrbitControls.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+		<script src="js/controls/FirstPersonControls.js"></script>
+		<script src="js/libs/dat.gui.min.js"></script>
+
+        
         
 		<script>
+			var line;
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			stats = new Stats();
@@ -68,9 +85,35 @@
 			stats.domElement.style.top = '0px';
 			document.body.appendChild(stats.domElement);
 			
-			/*controls = new THREE.FirstPersonControls( camera );
-			controls.movementSpeed = 10;
-			controls.lookSpeed = 0.1;*/
+			var params={
+				points:10,
+				radius:50,
+				displacement:30,
+				roughness:0.7,
+				generate:function(){ line=generate(params.points,params.radius,params.displacement,params.roughness,line,scene) }
+			};
+			
+			var zoomParams={
+				level:60,
+				zoomOut:function(){zoomParams.level+=5;},
+				zoomIn:function(){zoomParams.level-=5;}
+				
+			}
+			
+			var gui=new dat.GUI();
+			var circParam = gui.addFolder('Race track params');
+			circParam.add(params,'points');
+			circParam.add(params,'radius');
+			circParam.add(params,'displacement');
+			circParam.add(params,'roughness');
+			circParam.add(params,'generate');
+		
+			var zoomParam = gui.addFolder('zoom params');
+			zoomParam.add(zoomParams,'level');
+			zoomParam.add(zoomParams,'zoomIn');
+			zoomParam.add(zoomParams,'zoomOut');
+			
+			circParam.open();
 			
 			var clock = new THREE.Clock();
 			
@@ -78,42 +121,20 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
-			/*var ambientLight = new THREE.AmbientLight(0x111111);
-			scene.add(ambientLight);
-			
-			var light = new THREE.PointLight(0xffffff);
-			light.position.set(-10,20,10);
-			scene.add(light);
-			
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
-			var cube = new THREE.Mesh( geometry, material );
-			geometry.dynamic = true;
-            cube.position.set(0,0,-11);
-			scene.add( cube );
-			
-			var geometry = new THREE.PlaneGeometry(60, 60, 199, 199);
-			var material = new THREE.MeshPhongMaterial({
-				color: 0xdddddd, 
-				wireframe: true
-			});
-			var plane = new THREE.Mesh(geometry, material);
-			plane.rotation.x=-Math.PI/2;
-            plane.geometry.vertices[10].z=50
-			scene.add(plane);*/
             var width=10;
             var height=50;
             var points=genCircuit(width, height, 30,0.7);
             var pointsCarretera=mapToCircle(points);
 			var material = new THREE.LineBasicMaterial({
-				color: 0xdddddd
+				color: "#dddd00"
 			});
             var geometry=new THREE.Geometry();
             for(var i=0; i<pointsCarretera.length;i++){
                 geometry.vertices.push(pointsCarretera[i]);
             }
-            var line=new THREE.Line(geometry,material);
-            line.position.set(0,0,-60);
+			line=new THREE.Line(geometry,material);
+            
+			line.position.set(0,0,0);
             scene.add(line);
             
             /*var material2 = new THREE.LineBasicMaterial({
@@ -130,6 +151,7 @@
 			camera.position.x = 0;
 			camera.position.y =1;
 			function render() {
+				camera.position.z=zoomParams.level;
 				//cube.rotation.x += 0.1;
 				//cube.rotation.y += 0.1;
 			
